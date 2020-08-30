@@ -6,7 +6,9 @@
 
 <h2 align=center>Convolutional Nets in TensorFlow2</h2>
 
-[ConvNets-TensorFlow2](https://github.com/marload/ConvNetsRL-TensorFlow2) is a repository that implements a variety of popular Deep Convolutional Network Architectures using [TensorFlow2](https://tensorflow.org). The core of this repository is intuitive code and concise architecture. If you are a user of TensorFlow2 and want to study various and popular CNN architectures, this repository will be the best choice to study. ConvNets-TensorFlow2 is continuously updated and managed. This repository has been very much influenced by [Cifar100-pytorch](https://github.com/weiaicunzai/pytorch-cifar100).
+This is cloned repository from [ConvNets-TensorFlow2](https://github.com/marload/ConvNetsRL-TensorFlow2) that implements a variety of popular Deep Convolutional Network Architectures using [TensorFlow2](https://tensorflow.org). The core of this repository is intuitive code and concise architecture. If you are a user of TensorFlow2 and want to study various and popular CNN architectures, this repository will be the best choice to study. ConvNets-TensorFlow2 is continuously updated and managed. This repository has been very much influenced by [Cifar100-pytorch](https://github.com/weiaicunzai/pytorch-cifar100).
+
+This is cloned so that large pre-trained models can be added using Git LFS support. Git doesn't allow LFS on forked public repos.
 
 ## Usage
 ```bash
