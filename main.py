@@ -23,18 +23,23 @@ saved_model_path = '{}/{}/{}.h5'
 path = saved_model_path.format(args.saved_model, args.dataset, args.nets)
 # wandb.init(project="conv-nets", name=args.nets.lower())
 
-model = utils.choose_nets(args.nets)
+dataset_type = args.dataset
+
+if dataset_type == 'cifar10':
+    dataset = tf.keras.datasets.cifar10
+    num_classes = 10
+elif dataset_type == 'cifar100':
+    dataset = tf.keras.datasets.cifar100
+    num_classes = 100
+else:
+    raise ValueError('Please use cifar10 or cifar100 dataset')
+
+print('No. of classes', num_classes)
+
+model = utils.choose_nets(args.nets, num_classes)
 model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
-
-dataset_type = args.dataset
-if dataset_type == 'cifar10':
-    dataset = tf.keras.datasets.cifar10
-elif dataset_type == 'cifar100':
-    dataset = tf.keras.datasets.cifar100
-else:
-    raise ValueError('Please use cifar10 or cifar100 dataset')
 
 (x_train, y_train), (x_test, y_test) = dataset.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
