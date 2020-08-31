@@ -24,7 +24,6 @@ path = saved_model_path.format(args.saved_model, args.dataset, args.nets)
 # wandb.init(project="conv-nets", name=args.nets.lower())
 
 dataset_type = args.dataset
-
 if dataset_type == 'cifar10':
     dataset = tf.keras.datasets.cifar10
     num_classes = 10
@@ -33,8 +32,6 @@ elif dataset_type == 'cifar100':
     num_classes = 100
 else:
     raise ValueError('Please use cifar10 or cifar100 dataset')
-
-print('No. of classes', num_classes)
 
 model = utils.choose_nets(args.nets, num_classes)
 model.compile(optimizer='adam',
