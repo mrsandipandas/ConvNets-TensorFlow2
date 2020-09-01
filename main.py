@@ -10,7 +10,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 parser = argparse.ArgumentParser()
 parser.add_argument('--nets', type=str, required=True)
 parser.add_argument('--batch_size', type=int, default=32)
-parser.add_argument('--lr', type=float, default=0.001)
+parser.add_argument('--lr', type=float, default=0.01)
 parser.add_argument('--epochs', type=int, default=50)
 parser.add_argument('--ops', type=str, default='train')
 parser.add_argument('--saved_model', type=str, default='./saved_model')
@@ -33,39 +33,56 @@ elif dataset_type == 'cifar100':
 else:
     raise ValueError('Please use cifar10 or cifar100 dataset')
 
-model = utils.choose_nets(args.nets, num_classes)
-model.compile(optimizer='adam',
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['accuracy'])
-
 (x_train, y_train), (x_test, y_test) = dataset.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
 
 print('Unique training labels : ',np.unique(y_train))
 
 if args.ops == 'train':
-    model.fit(x_train, y_train,
-            validation_split=0.1,
-            epochs=args.epochs,
-            batch_size=args.batch_size)
+    # tf.debugging.set_log_device_placement(True)
+    # These 2 lines below use all GPUs present in the host
+    strategy = tf.distribute.MirroredStrategy()
+    with strategy.scope():
+        model = utils.choose_nets(args.nets, num_classes)
+        
+        model.compile(optimizer='adam',
+                    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+                    metrics=['accuracy'])
 
-    _, baseline_model_accuracy = model.evaluate(x_test, y_test, verbose=0)
-    print('Baseline test accuracy:', baseline_model_accuracy)
-    model.save_weights(path)
+        model.fit(x_train, y_train,
+                validation_split=0.1,
+                epochs=args.epochs,
+                batch_size=args.batch_size)
+
+        _, baseline_model_accuracy = model.evaluate(x_test, y_test, verbose=0)
+        print('Baseline test accuracy:', baseline_model_accuracy)
+        model.save_weights(path)
 
 if args.ops == 'test':
     print("Trained model is present at: ", path)
-    #model = tf.keras.models.load_model(path, compile=True) 
-    model.train_on_batch(x_train[:1], y_train[:1])
+    model = utils.choose_nets(args.nets, num_classes)
 
+    model.compile(optimizer='adam',
+                loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+                metrics=['accuracy'])    
+    
+    # This line is needed to initialize before loading the weights
+    model.train_on_batch(x_train[:1], y_train[:1])
     model.load_weights(path)
     print("Loaded model details:", args.nets, "for", args.dataset, "dataset")
     print(model.summary())
     
+    # Trained model
+    train_loss, train_acc = model.evaluate(x_train, y_train, verbose=2)
+    print("-" * 50)
+    print('Restored model, training dataset accuracy: {:5.2f}%'.format(100*train_acc))
+    
+    print("-" * 50)
+
     # Test model
     test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
     print("-" * 50)
-    print('Restored model, accuracy: {:5.2f}%'.format(100*test_acc))
+    print('Restored model, testing dataset accuracy: {:5.2f}%'.format(100*test_acc))
 
     #for layer in model.layers: 
         #print(layer.get_weights())
