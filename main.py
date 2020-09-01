@@ -2,6 +2,10 @@ import tensorflow as tf
 import argparse
 import utils
 import numpy as np
+#pip install openpyxl
+from openpyxl import Workbook
+from openpyxl import load_workbook
+
 # import wandb
 
 import os
@@ -83,6 +87,16 @@ if args.ops == 'test':
     test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
     print("-" * 50)
     print('Restored model, testing dataset accuracy: {:5.2f}%'.format(100*test_acc))
+
+    # Put the results in worksheet
+    saved_table_path = '{}/{}/{}.xlsx'
+    table_path = saved_table_path.format(args.saved_model, args.dataset, args.dataset)
+    print('The path to the excel comparision file is:', table_path)
+    wb = load_workbook(table_path)
+    ws = wb.active
+    ws.append([args.nets, train_acc, test_acc])
+    wb.save(table_path)
+
 
     #for layer in model.layers: 
         #print(layer.get_weights())
