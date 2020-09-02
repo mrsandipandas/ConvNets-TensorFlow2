@@ -1,106 +1,54 @@
 #!/bin/bash
 
-# python main.py --nets=ResNet18 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-# sleep 5
-# python main.py --nets=ResNet18 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-# sleep 5
-# python main.py --nets=DenseNet121 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-# sleep 5
-# python main.py --nets=VGG16 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-# sleep 5
-# python main.py --nets=VGG16 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
 
+## declare an array variable
+declare -a arr=("googlenet" 
+                "vgg11" "vgg13" "vgg16" "vgg19"
+                "resnet18" "resnet34" "resnet50" "resnet101" "resnet152"
+                "inceptionv3" "inceptionv4" "inception-resnet-v2"
+                "mobilenet" "mobilenetv2"
+                "seresnet18" "seresnet34" "seresnet50" "seresnet101" "seresnet152"
+                "densenet121" "densenet169" "densenet201"
+                "squeezenet")
 
-# sleep 5
-# python main.py --nets=resnet34 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-# sleep 5
-# python main.py --nets=resnet34 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
+## now loop through the above array
+for model in "${arr[@]}"
+do
+    echo "$model"
+    printf '%.s*' {1..50}
+    echo ""
 
-# sleep 5
-# python main.py --nets=resnet50 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-# sleep 5
-# python main.py --nets=resnet50 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
+    trained="0"
+    for filename in saved_model/cifar10/*.h5; do
+        [ -e "$filename" ] || continue
+        file_name="${filename##*/}"
+        model_name="${file_name%.*}"
+        
+        if [ "${model_name,,}" = "${model,,}" ]; then
+            trained="1"
+            break
+        fi
+    done
+    if [ ${trained} == "0" ]; then
+        echo "Need to train for cifar10"
+        python main.py --nets=$model --dataset=cifar10 --batch_size=64 --epochs=50 --ops=train
+    fi
 
-sleep 5
-python main.py --nets=googlenet --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=googlenet --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=inceptionv4 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=inceptionv4 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=inception-resnet-v2 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=inception-resnet-v2 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=seresnet152 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=seresnet152 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-
-sleep 5
-python main.py --nets=inceptionv3 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=inceptionv3 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=mobilenet --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=mobilenet --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=mobilenetv2 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=mobilenetv2 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=squeezenet --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=squeezenet --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=resnet101 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=resnet101 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=seresnet18 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=seresnet18 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=seresnet34 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=seresnet34 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=seresnet50 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=seresnet50 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=seresnet101 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=seresnet101 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=densenet169 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=densenet169 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=densenet201 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=densenet201 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-sleep 5
-python main.py --nets=densenet161 --dataset=cifar10 --batch_size=64 --epochs=30 --ops=train
-sleep 5
-python main.py --nets=densenet161 --dataset=cifar30 --batch_size=64 --epochs=30 --ops=train
-
-
-
+    trained="0"
+    for filename in saved_model/cifar100/*.h5; do
+        [ -e "$filename" ] || continue
+        file_name="${filename##*/}"
+        model_name="${file_name%.*}"
+        
+        if [ "${model_name,,}" = "${model,,}" ]; then
+            trained="1"
+            break
+        fi
+    done
+    if [ ${trained} == "0" ]; then
+        echo "Need to train for cifar100"
+        python main.py --nets=$model --dataset=cifar100 --batch_size=64 --epochs=50 --ops=train
+        printf '%.s_' {1..50}
+        echo ""
+    fi
+done

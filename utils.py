@@ -6,7 +6,7 @@ def choose_nets(nets_name, num_classes=100):
     if nets_name == 'vgg13':
         from models.VGG import VGG13
         return VGG13(num_classes)
-    if nets_name == 'VGG16':
+    if nets_name == 'vgg16':
         from models.VGG import VGG16
         return VGG16(num_classes)
     if nets_name == 'vgg19':
