@@ -17,3 +17,11 @@ saved_model/cifar100/resnet50.h5 filter=lfs diff=lfs merge=lfs -text
 saved_model/cifar100/DenseNet121.h5 filter=lfs diff=lfs merge=lfs -text
 saved_model/cifar100/ResNet18.h5 filter=lfs diff=lfs merge=lfs -text
 saved_model/cifar100/resnet34.h5 filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar100/cifar100.xlsx filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar10/densenet201.h5 filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar10/inception-resnet-v2.h5 filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar10/mobilenet.h5 filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar10/resnet101.h5 filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar10/squeezenet.h5 filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar10/cifar10.xlsx filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar10/densenet169.h5 filter=lfs diff=lfs merge=lfs -text
