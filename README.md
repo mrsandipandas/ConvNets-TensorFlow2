@@ -27,7 +27,7 @@ $ python main.py
 $ ./train_all.sh
 ```
 
-### To train everything at once 
+### To test everything at once 
 ```bash
 $ ./test_all.sh
 ```
