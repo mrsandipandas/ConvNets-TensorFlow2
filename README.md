@@ -22,6 +22,16 @@ $ python main.py
     --dataset={cifar10 | cifar100}            #Default cifar10
 ```
 
+### To train everything at once [Already trained models will not be trained again]
+```bash
+$ ./train_all.sh
+```
+
+### To train everything at once 
+```bash
+$ ./test_all.sh
+```
+
 ## Models
 
 - [VGG](#vgg)
