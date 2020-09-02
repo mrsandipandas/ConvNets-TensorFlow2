@@ -10,6 +10,12 @@ This is cloned repository from [ConvNets-TensorFlow2](https://github.com/marload
 
 This is cloned so that large pre-trained models can be added using Git LFS support. Git doesn't allow LFS on forked public repos.
 
+## Pre-requisites
+- Python 3.7
+- Tensorflow 2.1
+- openpyxl
+- numpy
+
 ## Usage
 ```bash
 $ python main.py 
@@ -27,7 +33,7 @@ $ python main.py
 $ ./train_all.sh
 ```
 
-### To test everything at once 
+### To test everything at once [Already inferenced models will not be executed again]
 ```bash
 $ ./test_all.sh
 ```
