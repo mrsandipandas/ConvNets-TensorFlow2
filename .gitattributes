@@ -27,3 +27,4 @@ saved_model/cifar10/cifar10.xlsx filter=lfs diff=lfs merge=lfs -text
 saved_model/cifar10/densenet169.h5 filter=lfs diff=lfs merge=lfs -text
 saved_model/cifar10/BigTransfer50x1.h5 filter=lfs diff=lfs merge=lfs -text
 models/big_transfer/BiT-M-R50x1.h5 filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar100/BigTransfer50x1.h5 filter=lfs diff=lfs merge=lfs -text
