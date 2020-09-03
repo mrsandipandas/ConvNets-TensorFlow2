@@ -2,14 +2,18 @@
 
 
 ## declare an array variable
-declare -a arr=("googlenet" 
-                "vgg11" "vgg13" "vgg16" "vgg19"
-                "resnet18" "resnet34" "resnet50" "resnet101" "resnet152"
-                "inceptionv3" "inceptionv4" "inception-resnet-v2"
-                "mobilenet" "mobilenetv2"
-                "seresnet18" "seresnet34" "seresnet50" "seresnet101" "seresnet152"
-                "densenet121" "densenet169" "densenet201"
-                "squeezenet")
+# declare -a arr=("bigtransfer50x1" 
+#                "vgg11" "vgg13" "vgg16" "vgg19"
+#                "resnet18" "resnet34" "resnet50" "resnet101" "resnet152"
+#                "inceptionv3" "inceptionv4" "inception-resnet-v2"
+#                "mobilenet" "mobilenetv2"
+#                "seresnet18" "seresnet34" "seresnet50" "seresnet101" "seresnet152"
+#                "densenet121" "densenet169" "densenet201"
+#                "squeezenet")
+
+declare -a arr=("bigtransfer50x1" 
+                "resnet18"
+                "densenet121")
 
 ## now loop through the above array
 for model in "${arr[@]}"
