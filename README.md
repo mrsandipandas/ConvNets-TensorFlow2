@@ -13,6 +13,7 @@ This is cloned so that large pre-trained models can be added using Git LFS suppo
 ## Pre-requisites
 - Python 3.7
 - Tensorflow 2.1
+- tensorflow-probability 0.9
 - openpyxl
 - numpy
 
