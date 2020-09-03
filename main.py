@@ -59,7 +59,7 @@ if args.ops == 'train':
     # These 2 lines below use all GPUs present in the host
     strategy = tf.distribute.MirroredStrategy()
     with strategy.scope():
-        model = utils.choose_nets(args.nets, num_classes)
+        model = utils.choose_nets(args.nets, num_classes, args.ops)
         
         model.compile(optimizer='adam',
                     loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
@@ -82,7 +82,7 @@ if args.ops == 'test':
 
     if not checked:
         print("Trained model is present at: ", path)
-        model = utils.choose_nets(args.nets, num_classes)
+        model = utils.choose_nets(args.nets, num_classes, args.ops)
 
         model.compile(optimizer='adam',
                     loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),

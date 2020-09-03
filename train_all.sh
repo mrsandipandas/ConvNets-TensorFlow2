@@ -2,7 +2,7 @@
 
 
 ## declare an array variable
-# declare -a arr=("bigtransfer50x1" 
+# declare -a arr=("BiT-M-R50x1" 
 #                "vgg11" "vgg13" "vgg16" "vgg19"
 #                "resnet18" "resnet34" "resnet50" "resnet101" "resnet152"
 #                "inceptionv3" "inceptionv4" "inception-resnet-v2"
@@ -11,7 +11,7 @@
 #                "densenet121" "densenet169" "densenet201"
 #                "squeezenet")
 
-declare -a arr=("bigtransfer50x1" 
+declare -a arr=("BiT-M-R50x1" 
                 "resnet18"
                 "densenet121")
 

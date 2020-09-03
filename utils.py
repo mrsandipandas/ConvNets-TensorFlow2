@@ -1,5 +1,34 @@
-def choose_nets(nets_name, num_classes=100):
+import models
+import os
+import tensorflow as tf
+
+def choose_nets(nets_name, num_classes, operation):
     nets_name = nets_name.lower()
+    if nets_name == 'bit-m-r50x1':
+        from models.big_transfer.BigTransfer import ResnetV2
+        filters_factor = int(nets_name[-1])*4
+        model =  ResnetV2(num_units=(3, 4, 6, 3), #From line no. 273 in BigTransfer
+                          num_outputs=21843,
+                          filters_factor=filters_factor,
+                          name="resnet",
+                          trainable=True,
+                          dtype=tf.float32)
+
+        model.build((None, None, None, 3))
+
+        if operation == 'train':
+            bit_model_file = os.path.join('./models/big_transfer/pre-trained', f'{nets_name}.h5')
+            print ('BiT pre-trained model file location:', bit_model_file)
+            model.load_weights(bit_model_file)
+
+        model._head = tf.keras.layers.Dense(units=num_classes,
+                                            use_bias=True,
+                                            kernel_initializer="zeros",
+                                            trainable=True,
+                                            name="head/dense")
+
+        return model
+
     if nets_name == 'vgg11':
         from models.VGG import VGG11
         return VGG11(num_classes)
