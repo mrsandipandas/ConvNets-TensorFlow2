@@ -25,3 +25,4 @@ saved_model/cifar10/resnet101.h5 filter=lfs diff=lfs merge=lfs -text
 saved_model/cifar10/squeezenet.h5 filter=lfs diff=lfs merge=lfs -text
 saved_model/cifar10/cifar10.xlsx filter=lfs diff=lfs merge=lfs -text
 saved_model/cifar10/densenet169.h5 filter=lfs diff=lfs merge=lfs -text
+saved_model/cifar10/BigTransfer50x1.h5 filter=lfs diff=lfs merge=lfs -text
