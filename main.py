@@ -86,10 +86,11 @@ if args.ops == 'test':
 
         model.compile(optimizer='adam',
                     loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-                    metrics=['accuracy'])    
-        
+                    metrics=['accuracy'])
+
         # This line is needed to initialize before loading the weights
         model.train_on_batch(x_train[:1], y_train[:1])
+
         model.load_weights(path)
         print("Loaded model details:", args.nets, "for", args.dataset, "dataset")
         print(model.summary())
